@@ -17,21 +17,8 @@
    height: 100%; margin: 0; padding: 0;
  }
  /*^CSS declaration indicates that the map container <div> (with id map) should take up 100% of the height of the HTML body. Note that we must specifically declare those percentages for <body> and <html> as well.*/
-  #map, #panorama, #pano {
+  #map {
     height: 75%;
     width: 85%;
     left: 5%;
-  }
-  #floating-panel {
-    position: absolute;
-    top: 10px;
-    left: 25%;
-    z-index: 5;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #999;
-    text-align: center;
-    font-family: 'Roboto','sans-serif';
-    line-height: 30px;
-    padding-left: 10px;
   }

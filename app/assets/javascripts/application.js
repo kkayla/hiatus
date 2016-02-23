@@ -17,30 +17,27 @@
 
 
 function initMap() {
-  var astorPlace = {lat: 40.729884, lng: -73.990988};
-
-  // Set up the map
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: astorPlace,
-    zoom: 18,
-    streetViewControl: false
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 14
   });
-
-  // We get the map's default panorama and set up some defaults.
-  // Note that we don't yet set it visible.
-  panorama = map.getStreetView();
-  panorama.setPosition(astorPlace);
-  panorama.setPov(/** @type {google.maps.StreetViewPov} */({
-    heading: 265,
-    pitch: 0
-  }));
+  var geocoder = new google.maps.Geocoder();
+  document.getElementById('submit').addEventListener('click', function(){
+    geocodeAddress(geocoder, map);
+  });
 }
 
-function toggleStreetView() {
-  var toggle = panorama.getVisible();
-  if (toggle == false) {
-    panorama.setVisible(true);
-  } else {
-    panorama.setVisible(false);
-  }
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
 }
