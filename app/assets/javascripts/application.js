@@ -16,16 +16,7 @@
 //= require_tree .
 
 
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 14
-  });
-  var geocoder = new google.maps.Geocoder();
-  document.getElementById('submit').addEventListener('click', function(){
-    geocodeAddress(geocoder, map);
-  });
-}
+
 
 function geocodeAddress(geocoder, resultsMap) {
   var address = document.getElementById('address').value;

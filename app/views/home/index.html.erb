@@ -2,7 +2,14 @@
 <p>Find me in app/views/home/index.html.erb</p>
 
 <strong>i'm geocoding b!#%$ </strong>
+<%= form_tag "/search" do %>
+  <%= text_field_tag :query %>
+  <%= submit_tag %>
+<% end %>
 
+    <%= @results[0] if @results %>
+
+<br />
 <br />
 
 <div id="floating-panel">
@@ -12,5 +19,14 @@
 <div id="map"></div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I&callback=initMap">
+// ^if we have the find results we take them, otherwise- nah. because we don;t have results when we first load the page
 </script>
-<!-- ^async lets the broswer render teh rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap" -->
+<!-- ^async lets the broswer render the rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap" -->
+<script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: <%=@results[0]['pos'].split(',')[0] if @results%>, lng: <%=@results[0]['pos'].split(',')[1] if @results%>},
+    zoom: 14
+  });
+
+}</script>
