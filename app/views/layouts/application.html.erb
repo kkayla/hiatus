@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>StreetviewApp</title>
+  <!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> -->
+  <!-- ^the map should be displayed full-screen and not resizable by the user -->
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= yield %>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I&callback=initMap"
+type="text/javascript">
+// the async attribute lets the browser render the rest of my kickass website while the MAPS API loads, then when the blesssed API is ready it will call the function in the 'callback' parameter = 'initMap'! yay!
+</script>
+
+</body>
+</html>
