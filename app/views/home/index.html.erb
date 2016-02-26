@@ -1,16 +1,18 @@
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
 
-<strong>life is a beach </strong>
+<strong>current location</strong>
 
 <button onclick="getLocation()">Try It</button>
-
 <p id="demo"></p>
+<!-- text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* -->
 
 <%= form_tag "/search" do %>
-  <%= text_field_tag :query %>
+  <%= label_tag :coords %>
+  <%= text_field_tag :coords,nil,{id: "yo-mama"}  %>
   <%= hidden_field_tag :coords,nil,{id: "yo-mama"} %>
-  <!-- ^we are taking the coords from the mif dpoms -->
+  <%= label_tag :query%>
+  <%= text_field_tag :query %>
   <%= submit_tag %>
 <% end %>
 
@@ -22,7 +24,7 @@
 // ^async lets the broswer render the rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap"
 </script>
 <script>
-var x = document.getElementById("demo");
+var x = document.getElementById("yo-mama");
 
 function getLocation() {
     if (navigator.geolocation) {
