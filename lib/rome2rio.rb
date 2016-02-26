@@ -17,7 +17,7 @@ class Rome2RioKayla
   private_class_method :get_response
 end
 
-#marching orders
+
 # 1.reverse geolocate the users location
 # 2. set that to Oname automatically
 # 3. keep ONE index box on the page for input dName
