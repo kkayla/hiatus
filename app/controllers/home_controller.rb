@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   end
 
   def search
-    @results= Rome2Rio.search(params[:query])
+    @results= Rome2RioKayla.search(params[:query],params[:coords])
     puts @results
     render 'index'
   end
