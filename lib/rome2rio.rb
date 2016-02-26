@@ -16,9 +16,3 @@ class Rome2RioKayla
   end
   private_class_method :get_response
 end
-
-
-# 1.reverse geolocate the users location
-# 2. set that to Oname automatically
-# 3. keep ONE index box on the page for input dName
-# 4.dName

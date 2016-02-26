@@ -4,13 +4,13 @@
 <strong>current location</strong>
 
 <button onclick="getLocation()">Try It</button>
-<p id="demo"></p>
 <!-- text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* -->
 
 <%= form_tag "/search" do %>
   <%= label_tag :coords %>
   <%= text_field_tag :coords,nil,{id: "yo-mama"}  %>
   <%= hidden_field_tag :coords,nil,{id: "yo-mama"} %>
+  <!-- ^when i take the hidden_field_tag out it doesn't run? -->
   <%= label_tag :query%>
   <%= text_field_tag :query %>
   <%= submit_tag %>
@@ -25,7 +25,6 @@
 </script>
 <script>
 var x = document.getElementById("yo-mama");
-
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.watchPosition(showPosition);
@@ -40,14 +39,34 @@ function showPosition(position) {
     + position.coords.longitude;
 }
 </script>
+
+
+
+<!-- *******I'M THE MAP, I'M THE MAP!**** -->
 <script>
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: <%=@results['places'][1]['pos'].split(',')[0] if @results%>,
-            lng: <%=@results['places'][1]['pos'].split(',')[1] if @results%>},
+    center: {
+    lat: <%=@results['places'][1]['pos'].split(',')[0] if @results%>,
+    lng: <%=@results['places'][1]['pos'].split(',')[1] if @results%>
+    },
     zoom: 14
   });
+  var panorama = new google.maps.StreetViewPanorama(
+      document.getElementById('map'), {
+        position: {
+          lat: <%=@results['places'][1]['pos'].split(',')[0] if @results%>,
+          lng: <%=@results['places'][1]['pos'].split(',')[1] if @results%>
+          },
+        pov: {
+          heading: 34,
+          pitch: 10
+        }
+      });
+  map.setStreetView(panorama);
 }
 </script>
+
 </body>
 </html>

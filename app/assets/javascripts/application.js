@@ -12,14 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-<<<<<<< HEAD
 //= require_tree .
-=======
-//= require turbolinks
 //= require_tree .
-
-
-
 
 function geocodeAddress(geocoder, resultsMap) {
   var address = document.getElementById('address').value;
@@ -35,4 +29,3 @@ function geocodeAddress(geocoder, resultsMap) {
     }
   });
 }
->>>>>>> 18e85214d974cd765bfd921db618df09a5ea3835
