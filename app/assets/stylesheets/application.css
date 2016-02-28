@@ -15,6 +15,10 @@
  */
  html, body {
    height: 100%; margin: 0; padding: 0;
+   background-color: #3498db;
+   font-family: Arial;
+   color: navy;
+   text-align: center;
  }
  /*^CSS declaration indicates that the map container <div> (with id map) should take up 100% of the height of the HTML body. Note that we must specifically declare those percentages for <body> and <html> as well.*/
   #map {
