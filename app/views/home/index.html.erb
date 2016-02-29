@@ -5,7 +5,6 @@
 
 <button onclick="getLocation()">Try It</button>
 <!-- text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* -->
-
 <%= form_tag "/search" do %>
   <%= label_tag :coords %>
   <!-- <%= text_field_tag :coords,nil,{id: "yo-mama"}  %> -->
@@ -16,6 +15,23 @@
   <%= submit_tag "search"%>
 <% end %>
 
+<% if @results %>
+  <% dest = @results['places'][1]['pos']%>
+  <!-- we made the destination coordinates its own variable so we can plug it into the panorama api -->
+
+  <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%=dest %>&heading=151.78&pitch=-0.76&key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I" />
+<th>
+
+</th>
+<strong><%= @results['places'][1]['pos']%></strong>
+<strong><%= @results['places'][1]['countryCode']%></strong>
+<%= @results['routes'][1]%>
+<%= @results['routes'][1]['name']%>
+<%= @results['routes'][1]['distance']%>
+<%= @results['routes'][1]['duration']%>
+<%= @results['routes'][1]['stops']%>
+<%= @results['routes'][1]['segments']%>
+<%end%>
 
 <div id="map"></div>
 
@@ -62,7 +78,7 @@ function initMap() {
       });
   map.setStreetView(panorama);
 }
-</script>
 
+</script>
 </body>
 </html>
