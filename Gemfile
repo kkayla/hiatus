@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rspotify'
 # gem 'rome2rio', '~> 0.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

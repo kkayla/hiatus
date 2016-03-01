@@ -3,26 +3,23 @@
 
 <strong>click here for your current location &#8680;</strong>
 
-<button onclick="getLocation()">Try It</button>
-<!-- text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* -->
+<button onclick="getLocation()">Try It</button><!-- //text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* --> -->
 <%= form_tag "/search" do %>
-  <%= label_tag :coords %>
-  <!-- <%= text_field_tag :coords,nil,{id: "yo-mama"}  %> -->
-  <%= hidden_field_tag :coords,nil,{id: "yo-mama"} %>
-  <!-- ^when i take the hidden_field_tag out it doesn't run? -->
+  <%= label_tag :coords %><!-- <%= text_field_tag :coords,nil,{id: "yo-mama"}  %> -->
+  <%= hidden_field_tag :coords,nil,{id: "yo-mama"} %><!-- ^when i take the hidden_field_tag out it doesn't run? -->
   <%= label_tag :query%>
   <%= text_field_tag :query %>
   <%= submit_tag "search"%>
 <% end %>
-
+<!-- **end of form** -->
 <% if @results %>
-  <% dest = @results['places'][1]['pos']%>
-  <!-- we made the destination coordinates its own variable so we can plug it into the panorama api -->
-
+  <% dest = @results['places'][1]['pos']%>  <!-- we made the destination coordinates its own variable so we can plug it into the panorama api -->
   <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%=dest %>&heading=151.78&pitch=-0.76&key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I" />
-<th>
+  <img src= "https://maps.googleapis.com/maps/api/place/photo?photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I" />
 
-</th>
+<!-- <br />
+<br />
+<br />
 <strong><%= @results['places'][1]['pos']%></strong>
 <strong><%= @results['places'][1]['countryCode']%></strong>
 <%= @results['routes'][1]%>
@@ -31,12 +28,11 @@
 <%= @results['routes'][1]['duration']%>
 <%= @results['routes'][1]['stops']%>
 <%= @results['routes'][1]['segments']%>
-<%end%>
+<%end%> -->
 
 <div id="map"></div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I&callback=initMap">
-// ^async lets the broswer render the rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap"
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I&callback=initMap"> // ^async lets the broswer render the rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap"
 </script>
 <script>
 var x = document.getElementById('yo-mama');
@@ -55,9 +51,22 @@ function showPosition(position) {
 }
 </script>
 
-<!-- *******I'M THE MAP, I'M THE MAP!**** -->
+<!-- *******I'M THEal MAP, I'M THE MAP!**** -->
 <script>
 function initMap() {
+  function createPhotoMarker(place) {
+  var photos = place.photos;
+  if (!photos) {
+    return;
+  }
+
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    title: place.name,
+    icon: photos[0].getUrl({'maxWidth': 35, 'maxHeight': 35})
+  });
+}
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
     lat: <%=@results['places'][1]['pos'].split(',')[0] if @results%>,
@@ -76,6 +85,16 @@ function initMap() {
           pitch: 10
         }
       });
+
+      window.setInterval(function () {
+
+        var pov = panorama.getPov();
+        var increment = 1;
+        pov.heading += 0.2;
+        panorama.setPov(pov);
+
+      }, 10);
+
   map.setStreetView(panorama);
 }
 
