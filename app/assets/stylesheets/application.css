@@ -15,21 +15,45 @@
  */
  html, body {
    height: 100%; margin: 0; padding: 0;
-   /*background-color: #fdd12d;*/
    font-family: monospace;
    color: whitesmoke;
    text-align: center;
-
+     font-family: 'Arvo', serif;
+     font-size: 20px;
+     font-size-adjust: auto;
+     margin: 0;
 
 background: #00d2ff; /* fallback for old browsers */
 background: -webkit-linear-gradient(to left, #00d2ff , #3a7bd5); /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #00d2ff , #3a7bd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+canvas { width: 100%; height: 100% }
 
-
- }
+#thing {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
  /*^CSS declaration indicates that the map container <div> (with id map) should take up 100% of the height of the HTML body. Note that we must specifically declare those percentages for <body> and <html> as well.*/
   #map {
     height: 75%;
     width: 85%;
     left: 5%;
   }
+figure{
+width: 220px;
+        float: left;
+        margin: 10px;
+        height: 198px;
+}
+h1{
+  font-size: 48px;
+}
+h4{
+  font-size: 72px;
+}
+button{
+  border-radius: 50%
+}
+#go {
+  padding: 10px;
+}

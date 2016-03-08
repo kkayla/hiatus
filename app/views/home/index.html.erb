@@ -1,102 +1,66 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<h1 id='thing'>hiatus</h1>
+<div class="c-slack">
+  <span class="c-slack__dot c-slack__dot--a"></span>
+  <span class="c-slack__dot c-slack__dot--b"></span>
+  <span class="c-slack__dot c-slack__dot--c"></span>
+  <span class="c-slack__dot c-slack__dot--d"></span>
+</div>
+
+<p>see the world as you are</p>
+<p>hear the sounds</p>
 
 <strong>click here for your current location &#8680;</strong>
 
-<button onclick="getLocation()">Try It</button><!-- //text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* --> -->
+<button onclick="getLocation()">HERE</button><!-- //text_field_tag(name, value = nil, options = {}) Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query /* -->
 <%= form_tag "/search" do %>
-  <%= label_tag :coords %>
+  <%= label_tag :coords, "Origin" %>
 <%= text_field_tag :coords,nil,{id: "yo-mama"}  %>
   <%= hidden_field_tag :coords,nil,{id: "yo-mama"} %>
   <!-- //when i take the hidden_field_tag out it doesn't run? -->
-  <%= label_tag :query%>
+  <br />
+  <%= label_tag :query, "Destination"%>
   <%= text_field_tag :query %>
-  <%= submit_tag "search"%>
+  <br />
+  <%= submit_tag "LETS GO!"%>
 <% end %>
+
+
 <%if @featured_playlists %>
 <% @featured_playlists.each do |p| %>
-  <%= p.images %>
-  <%= p.description %>
-  <img src=
-  <% end %>
-  <% end %>
+<figure>
+  <%= image_tag p.images[0]['url'] %>
+<br />
+<figcaption><%= p.description %></figcaption>
+</figure>
+<% end %>
+<% end %>
 <!-- **end of form** -->
 <% if @results %>
-  <% dest = @results['places'][1]['pos']%>  <!-- we made the destination coordinates its own variable so we can plug it into the panorama api -->
-  <!-- <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%=dest %>&heading=151.78&pitch=-0.76&key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I" /> -->
-  <!-- ***place search really quick*** -->
-  <https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&name=cruise&key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I>
-
-
-
+  <% dest = @results['places'][1]['pos']%>  <!-- we made the destination coordinates its own variable so we can plug it into the panorama -->
 <br />
 <br />
 <!-- ****ROME 2 RIO SEARCH***** -->
-<strong><%= @results['places'][1]['pos']%></strong>
-<strong><%= @results['places'][1]['countryCode']%></strong>
-
-<!-- <%= @results['routes'][1]%>
-<%= @results['routes'][1]['name']%>
-<%= @results['routes'][1]['distance']%>
-<%= @results['routes'][1]['duration']%>
-<%= @results['routes'][1]['stops']%>
-<%= @results['routes'][1]['segments']%>
-<%end%> -->
-
 <div id="map"></div>
+<div id="go">
+<h3>from you to</h3>
+  <br />
+  <h4><%= @results['places'][1]['longName'] %></h4>
+</div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL3tGbNJnkQPnEp5KRfIUi-TOJ6-LWZ0I&callback=initMap"> // ^async lets the broswer render the rest of the webiste while the Maps API loads. when the blessed api is ready, it calls the function specified using the callback which is: "initMap"
-</script>
-<script>
-// **GEOLOCATOR***
-var x = document.getElementById('yo-mama');
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    x.innerHTML = position.coords.latitude + ","
-    + position.coords.longitude;
-    document.getElementById('yo-mama').value = position.coords.latitude + ","
-    + position.coords.longitude;
-}
-</script>
-<!-- **END GEOLOCATOR** -->
-<!-- *******I'M THE MAP, I'M THE MAP!**** -->
-<script>
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center:
-      {
-      lat: <%=@results['places'][1]['pos'].split(',')[0] if @results%>,
-      lng: <%=@results['places'][1]['pos'].split(',')[1] if @results%>
-      },
-    zoom: 14
-  });
-  var panorama = new google.maps.StreetViewPanorama(
-    document.getElementById('map'), {
-      position: {
-        lat: <%=@results['places'][1]['pos'].split(',')[0] if   @results%>,
-        lng: <%=@results['places'][1]['pos'].split(',')[1] if @results%>
-          },
-      pov: {
-        heading: 34,
-        pitch: 10
-          }
-  });
-    // **start spin**
-      window.setInterval(function () {
-        var pov = panorama.getPov();
-        var increment = 1;
-        pov.heading += 0.2;
-        panorama.setPov(pov);
-      }, 10); //rortates every 10 milli seconds, not seconds you dummy
+    <%= @results['routes'][1]['name']%>
+    <%= @results['routes'][1]['distance'] %> ||
+    <%= @results['routes'][1]['duration'] %> ||
+    <%= @results['routes'][1]['segments'][1]['kind'] %>
+<!-- <li><%= @results['routes'][1]%></li> -->
+<!-- <li><%= @results['routes'][1]['name']%></li>
+<li><%= @results['routes'][1]['distance']%></li>
+<li><%= @results['routes'][1]['duration']%></li>
+<li><%= @results['routes'][1]['stops']%></li>
+<li><%= @results['routes'][1]['segments']%></li> -->
+</ul>
+<%end%>
 
-      map.setStreetView(panorama);
-    }
-</script>
+<link href='https://fonts.googleapis.com/css?family=Arvo|Raleway|Raleway+Dots' rel='stylesheet' type='text/css'>
 </body>
 </html>
